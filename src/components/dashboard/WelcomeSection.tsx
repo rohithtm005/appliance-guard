@@ -17,7 +17,7 @@ export function WelcomeSection() {
       
       <div className="relative z-10 max-w-2xl">
         <h1 className="text-4xl font-bold mb-4">
-          Welcome to AppliTracker
+          Welcome to Application Tracker
         </h1>
         <p className="text-lg opacity-90 mb-6">
           Keep track of all your home appliances, warranties, and maintenance schedules in one place. 
@@ -42,16 +42,6 @@ export function WelcomeSection() {
           >
             <Calendar className="h-4 w-4 mr-2" />
             View Calendar
-          </Button>
-          
-          <Button 
-            size="lg"
-            variant="outline"
-            className="border-white/30 text-white hover:bg-white/10"
-            onClick={() => navigate('/appliances')}
-          >
-            <Search className="h-4 w-4 mr-2" />
-            Browse All
           </Button>
         </div>
       </div>

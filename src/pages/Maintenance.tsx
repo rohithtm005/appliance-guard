@@ -26,7 +26,7 @@ export default function Maintenance() {
         <TabsList>
           <TabsTrigger value="calendar" className="flex items-center gap-2">
             <CalendarDays className="h-4 w-4" />
-            Calendar View
+            <span className="text-primary">Calendar View</span>
           </TabsTrigger>
           <TabsTrigger value="list" className="flex items-center gap-2">
             <List className="h-4 w-4" />

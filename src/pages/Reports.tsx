@@ -1,8 +1,18 @@
 import { Download, FileText, BarChart3, PieChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAppliances } from "@/contexts/AppliancesContext";
 
 export default function Reports() {
+  const { appliances } = useAppliances();
+  
+  // Calculate real-time statistics
+  const stats = {
+    totalAppliances: appliances.length,
+    underWarranty: appliances.filter(a => a.status === 'Active').length,
+    totalInvestment: appliances.reduce((sum, a) => sum + (a.purchasePrice || 0), 0),
+    maintenanceDue: 0 // Will be calculated when maintenance feature is added
+  };
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
@@ -79,19 +89,19 @@ export default function Reports() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-muted/50 rounded-lg">
-              <p className="text-2xl font-bold text-primary">12</p>
+              <p className="text-2xl font-bold text-primary">{stats.totalAppliances}</p>
               <p className="text-sm text-muted-foreground">Total Appliances</p>
             </div>
             <div className="text-center p-4 bg-muted/50 rounded-lg">
-              <p className="text-2xl font-bold text-success">8</p>
+              <p className="text-2xl font-bold text-success">{stats.underWarranty}</p>
               <p className="text-sm text-muted-foreground">Under Warranty</p>
             </div>
             <div className="text-center p-4 bg-muted/50 rounded-lg">
-              <p className="text-2xl font-bold text-warning">₹2.4L</p>
+              <p className="text-2xl font-bold text-warning">₹{(stats.totalInvestment / 100000).toFixed(1)}L</p>
               <p className="text-sm text-muted-foreground">Total Investment</p>
             </div>
             <div className="text-center p-4 bg-muted/50 rounded-lg">
-              <p className="text-2xl font-bold text-primary">5</p>
+              <p className="text-2xl font-bold text-primary">{stats.maintenanceDue}</p>
               <p className="text-sm text-muted-foreground">Maintenance Due</p>
             </div>
           </div>

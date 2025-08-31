@@ -56,7 +56,7 @@ export function AppSidebar() {
           </div>
           {!isCollapsed && (
             <div>
-              <h2 className="text-lg font-semibold text-sidebar-foreground">AppliTracker</h2>
+              <h2 className="text-lg font-semibold text-sidebar-foreground">Application Tracker</h2>
               <p className="text-xs text-sidebar-foreground/60">Home Appliances</p>
             </div>
           )}

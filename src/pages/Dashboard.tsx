@@ -3,15 +3,19 @@ import { KpiCard } from "@/components/dashboard/KpiCard";
 import { RecentAlerts } from "@/components/dashboard/RecentAlerts";
 import { UpcomingMaintenance } from "@/components/dashboard/UpcomingMaintenance";
 import { WelcomeSection } from "@/components/dashboard/WelcomeSection";
-import heroImage from "@/assets/dashboard-hero.jpg";
+import { useAppliances } from "@/contexts/AppliancesContext";
+import { useAlerts } from "@/contexts/AlertsContext";
 
 export default function Dashboard() {
-  // Mock data - would come from API
+  const { appliances } = useAppliances();
+  const { alerts } = useAlerts();
+  
+  // Calculate real-time KPI data
   const kpiData = {
-    totalAppliances: 12,
-    underWarranty: 8,
-    expiringSoon: 3,
-    upcomingMaintenance: 5
+    totalAppliances: appliances.length,
+    underWarranty: appliances.filter(a => a.status === 'Active').length,
+    expiringSoon: appliances.filter(a => a.status === 'Expiring').length,
+    upcomingMaintenance: 0 // Will be calculated when maintenance feature is added
   };
 
   return (

@@ -3,35 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-// Mock data - would come from API
-const upcomingMaintenance = [
-  {
-    id: "1",
-    applianceName: "Samsung 55\" QLED TV",
-    description: "Panel cleaning & inspection",
-    scheduledDate: "2024-01-10",
-    provider: "Samsung Care",
-    status: "UPCOMING"
-  },
-  {
-    id: "2",
-    applianceName: "LG Refrigerator 260L",
-    description: "Compressor check",
-    scheduledDate: "2024-01-15",
-    provider: "LG Service",
-    status: "UPCOMING"
-  },
-  {
-    id: "3",
-    applianceName: "Whirlpool Washing Machine",
-    description: "Filter cleaning",
-    scheduledDate: "2024-01-20",
-    provider: "Local Service",
-    status: "UPCOMING"
-  }
-];
-
 export function UpcomingMaintenance() {
+  // No maintenance data yet - will be implemented when maintenance feature is added
+  const upcomingMaintenance: any[] = [];
   return (
     <Card className="hover-lift">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">

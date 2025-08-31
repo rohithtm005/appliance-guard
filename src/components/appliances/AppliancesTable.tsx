@@ -9,18 +9,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
-
-interface Appliance {
-  id: string;
-  name: string;
-  category: string;
-  brand: string;
-  model: string;
-  purchaseDate: string;
-  warrantyExpiry: string;
-  status: string;
-}
+import { useAppliances, Appliance } from "@/contexts/AppliancesContext";
 
 interface AppliancesTableProps {
   appliances: Appliance[];
@@ -28,6 +29,11 @@ interface AppliancesTableProps {
 
 export function AppliancesTable({ appliances }: AppliancesTableProps) {
   const navigate = useNavigate();
+  const { deleteAppliance } = useAppliances();
+
+  const handleDelete = (appliance: Appliance) => {
+    deleteAppliance(appliance.id);
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -128,17 +134,35 @@ export function AppliancesTable({ appliances }: AppliancesTableProps) {
                   >
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-destructive hover:text-destructive"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // Handle delete
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-destructive hover:text-destructive"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Appliance</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete "{appliance.name}"? This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          className="bg-destructive hover:bg-destructive/90"
+                          onClick={() => handleDelete(appliance)}
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               </TableCell>
             </TableRow>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Search, Filter } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,49 +7,17 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { AppliancesTable } from "@/components/appliances/AppliancesTable";
 import { AppliancesFilters } from "@/components/appliances/AppliancesFilters";
-
-// Mock data
-const mockAppliances = [
-  {
-    id: "1",
-    name: "LG Refrigerator 260L",
-    category: "Refrigerator",
-    brand: "LG",
-    model: "GL-I292RPZL",
-    purchaseDate: "2023-07-15",
-    warrantyExpiry: "2025-07-15",
-    status: "Active"
-  },
-  {
-    id: "2", 
-    name: "Samsung 55\" QLED TV",
-    category: "TV",
-    brand: "Samsung",
-    model: "QA55Q60",
-    purchaseDate: "2022-11-05",
-    warrantyExpiry: "2024-01-15",
-    status: "Expiring"
-  },
-  {
-    id: "3",
-    name: "iPhone 14 Pro",
-    category: "Mobile",
-    brand: "Apple",
-    model: "A2890",
-    purchaseDate: "2023-01-20",
-    warrantyExpiry: "2024-01-20",
-    status: "Expiring"
-  }
-];
+import { useAppliances } from "@/contexts/AppliancesContext";
 
 export default function Appliances() {
   const navigate = useNavigate();
+  const { appliances } = useAppliances();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState("all");
 
   // Filter appliances based on search and filters
-  const filteredAppliances = mockAppliances.filter((appliance) => {
+  const filteredAppliances = appliances.filter((appliance) => {
     const matchesSearch = appliance.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       appliance.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
       appliance.model.toLowerCase().includes(searchQuery.toLowerCase());
@@ -116,10 +84,13 @@ export default function Appliances() {
             
             <div className="flex gap-2">
               <Badge variant="outline">
-                {mockAppliances.filter(a => a.status === "Active").length} Active
+                {appliances.filter(a => a.status === "Active").length} Active
               </Badge>
               <Badge variant="outline" className="text-warning">
-                {mockAppliances.filter(a => a.status === "Expiring").length} Expiring
+                {appliances.filter(a => a.status === "Expiring").length} Expiring
+              </Badge>
+              <Badge variant="outline" className="text-destructive">
+                {appliances.filter(a => a.status === "Expired").length} Expired
               </Badge>
             </div>
           </div>

@@ -19,30 +19,10 @@ interface AlertsContextType {
 
 const AlertsContext = createContext<AlertsContextType | undefined>(undefined);
 
-// Mock data for demo
-const mockAlerts: Alert[] = [
-  {
-    id: "1",
-    type: "WARRANTY_EXPIRING_SOON",
-    title: "Warranty Expiring Soon",
-    message: "LG Refrigerator warranty expires in 15 days",
-    dueDate: "2024-01-15",
-    read: false,
-    createdAt: "2024-01-01T10:00:00Z"
-  },
-  {
-    id: "2", 
-    type: "MAINTENANCE_UPCOMING",
-    title: "Maintenance Due",
-    message: "Samsung TV panel cleaning scheduled for next week",
-    dueDate: "2024-01-10",
-    read: false,
-    createdAt: "2024-01-01T11:00:00Z"
-  }
-];
+// No mock data - alerts will be generated based on appliances
 
 export function AlertsProvider({ children }: { children: ReactNode }) {
-  const [alerts, setAlerts] = useState<Alert[]>(mockAlerts);
+  const [alerts, setAlerts] = useState<Alert[]>([]);
   
   const unreadCount = alerts.filter(alert => !alert.read).length;
 
